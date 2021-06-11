@@ -27,14 +27,14 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public void register(String name, String email, String password, String[] roles) {
+    public void register(String email, String password, String[] roles) {
       if (userRepository.findByEmail(email).isPresent()) {
         throw new RuntimeException("invalid name or email");
       }
       String encodedPassword = passwordEncode(password);
       String joinedRoles = joinRoles(roles);
-      log.debug("name:{}, email:{}, roles:{}", name, email, joinedRoles);
-      User user = new User(null, name, email, encodedPassword, joinedRoles, Boolean.TRUE);
+      log.debug(", email:{}, roles:{}", email, joinedRoles);
+      User user = new User(null, email, encodedPassword, joinedRoles, Boolean.TRUE);
       userRepository.save(user);
     }
   

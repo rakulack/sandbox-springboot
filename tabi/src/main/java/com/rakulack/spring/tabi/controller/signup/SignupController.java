@@ -1,10 +1,11 @@
 package com.rakulack.spring.tabi.controller.signup;
 
+import com.rakulack.spring.tabi.service.AccountService;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -12,17 +13,23 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * @author rakulack
  */
 @Controller
-@RequestMapping(value = "signup")
 public class SignupController {
 
-    @GetMapping("/")
+	private final AccountService accountService;
+
+	public SignupController(AccountService accountService) {
+		this.accountService = accountService;
+	}
+    @GetMapping("/signup")
 	public String get() {
 		return "signup";
 	}
 
-    @PostMapping("/")
+    @PostMapping("/signup")
 	public String post(@ModelAttribute("signup") SignupForm signupForm, RedirectAttributes redirectAttributes) {
+		String[] roles = {"ROLE_USER"};
+	    accountService.register(signupForm.getEmail(), signupForm.getPassword(), roles);
+    	redirectAttributes.addFlashAttribute("successMessage", "アカウントの登録が完了しました。利用する場合はログインしてください");
 		return "redirect:/";
 	}
-
 }

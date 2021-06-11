@@ -14,6 +14,4 @@ public class SignupForm {
   private String email;
   @NonNull
   private String password;
-  @NonNull
-  private String name;
 }   
