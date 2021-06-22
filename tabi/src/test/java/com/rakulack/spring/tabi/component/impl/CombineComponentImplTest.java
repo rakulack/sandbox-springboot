@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import com.rakulack.spring.tabi.controller.block.BlockForm;
+import com.rakulack.spring.tabi.controller.edit.BlockForm;
 import com.rakulack.spring.tabi.entity.Place;
 import com.rakulack.spring.tabi.entity.Route;
 

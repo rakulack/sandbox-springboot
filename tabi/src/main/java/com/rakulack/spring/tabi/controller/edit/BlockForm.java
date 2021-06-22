@@ -1,4 +1,4 @@
-package com.rakulack.spring.tabi.controller.block;
+package com.rakulack.spring.tabi.controller.edit;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
