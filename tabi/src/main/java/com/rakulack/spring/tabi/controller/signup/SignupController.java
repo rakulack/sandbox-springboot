@@ -10,6 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * アカウント登録にかかわる動作を管理する
+ * 
  * @author rakulack
  */
 @Controller
@@ -20,16 +21,17 @@ public class SignupController {
 	public SignupController(AccountService accountService) {
 		this.accountService = accountService;
 	}
-    @GetMapping("/signup")
+
+	@GetMapping(value = "/signup")
 	public String get() {
 		return "signup";
 	}
 
-    @PostMapping("/signup")
+	@PostMapping(value = "/signup")
 	public String post(@ModelAttribute("signup") SignupForm signupForm, RedirectAttributes redirectAttributes) {
-		String[] roles = {"ROLE_USER"};
-	    accountService.register(signupForm.getEmail(), signupForm.getPassword(), roles);
-    	redirectAttributes.addFlashAttribute("successMessage", "アカウントの登録が完了しました。利用する場合はログインしてください");
+		String[] roles = { "ROLE_USER" };
+		accountService.register(signupForm.getEmail(), signupForm.getPassword(), roles);
+		redirectAttributes.addFlashAttribute("successMessage", "アカウントの登録が完了しました。利用する場合はログインしてください");
 		return "redirect:/";
 	}
 }

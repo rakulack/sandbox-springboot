@@ -26,10 +26,6 @@ public class Route {
     private Long id;
     @Column(name = "header_id", nullable = false)
     private Long headerId;
-    @Column(name = "from_place_id", nullable = false)
-    private Long fromPlaceId;
-    @Column(name = "to_place_id", nullable = false)
-    private Long toPlaceId;
     @Column(name = "route", length = 200, nullable = false)
     private String route;
     @Column(name = "from_hour")

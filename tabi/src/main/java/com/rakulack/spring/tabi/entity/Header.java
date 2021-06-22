@@ -24,6 +24,8 @@ public class Header {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "user_id")
+    private Long userId;
     @Column(name = "hash", length = 120, nullable = false, unique = true)
     private String hash;
     @Column(name = "title", length = 200, nullable = false)
