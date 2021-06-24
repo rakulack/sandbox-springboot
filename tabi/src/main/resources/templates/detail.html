@@ -6,6 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title th:text="${header.title}">title</title>
 </head>
 
 <body>
@@ -68,23 +69,43 @@
             </v-app-bar>
 
             <v-main class="grey lighten-2">
-                <v-alert type="success" th:if="${successMessage != null}">
-                    <span th:text="${successMessage}">successMessage</span>
-                </v-alert>
-
                 <v-container>
-                    <v-row>
-                        <template v-for="n in 4">
-                            <v-col :key="n" class="mt-2" cols="12">
-                                <strong>Category {{ n }}</strong>
-                            </v-col>
-
-                            <v-col v-for="j in 6" :key="`${n}${j}`" cols="6" md="2">
-                                <v-sheet height="150"></v-sheet>
-                            </v-col>
-                        </template>
-                    </v-row>
+                    <v-card elevation="2">
+                        <v-card-title th:text="${header.title}">title</v-card-title>
+                        <v-card-subtitle>URL:<a th:href="'http://localhost:8080/detail/' + ${header.hash}" th:text="'http://localhost:8080/detail/' + ${header.hash}"></a></v-card-subtitle>
+                    <v-card-actions>
+                        <v-btn th:href="'/edit/' + ${header.hash}" color="orange lighten-2" text>
+                        編集
+                        </v-btn>
+                    </v-card-actions>
+                    </v-card>
                 </v-container>
+                <template th:if="${!#lists.isEmpty(blocks)}" th:each="block : ${blocks}">
+                    <v-container>
+                        <v-card elevation="2">
+                            <v-img height="250" th:src="${block.imgUrl}"></v-img>
+                            <v-card-title th:text="${block.dest}">title</v-card-title>
+                            <v-card-text th:text="${block.article}"></v-card-text>
+                            <v-divider class="mx-4"></v-divider>
+                            <v-card-text th:text="'滞在時間 '+${block.CombinePlaceFromTime()}+' ～ '+${block.CombinePlaceToTime()}"></v-card-text>
+                        </v-card>
+                    </v-container>
+                <template th:if="${block.hasRoute}">
+                    <div style="text-align:center;">
+                        <v-icon>mdi-arrow-down-circle-outline</v-icon>
+                    </div>
+                    <v-container>
+                        <v-card elevation="2">
+                            <v-card-text th:text="${block.route}">route</v-card-text>
+                            <v-divider class="mx-4"></v-divider>
+                            <v-card-text th:text="'滞在時間 '+${block.CombineRouteFromTime()}+' ～ '+${block.CombineRouteToTime()}"></v-card-text>                            
+                        </v-card>
+                    </v-container>
+                    <div style="text-align:center;">
+                        <v-icon>mdi-arrow-down-circle-outline</v-icon>
+                    </div>
+                </template>
+                </template>
             </v-main>
         </v-app>
 

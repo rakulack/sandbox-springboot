@@ -29,14 +29,15 @@ public class CombineComponentImpl implements CombineComponent {
             ord++;
             Place p = placeIte.next();
             Route r = routeIte.next();
-            result.add(new BlockForm(Long.valueOf(ord), p.getArticle(), p.getFromHour(), p.getFromMinute(),
-                    p.getToHour(), p.getToMinute(), p.getPhoto(), p.getUrl(), r.getRoute(), r.getFromHour(),
-                    r.getFromMinute(), r.getToHour(), r.getToHour(), true));
+            result.add(new BlockForm(Long.valueOf(ord), p.getHeaderId(), p.getId(), p.getDest(), p.getArticle(),
+                    p.getFromHour(), p.getFromMinute(), p.getToHour(), p.getToMinute(), p.getImgUrl(), p.getOuterUrl(),
+                    r.getId(), r.getRoute(), r.getFromHour(), r.getFromMinute(), r.getToHour(), r.getToMinute(), true));
         }
         ord++;
         Place p = placeIte.next();
-        result.add(new BlockForm(Long.valueOf(ord), p.getArticle(), p.getFromHour(), p.getFromMinute(), p.getToHour(),
-                p.getToMinute(), p.getPhoto(), p.getUrl(), null, null, null, null, null, false));
+        result.add(new BlockForm(Long.valueOf(ord), p.getHeaderId(), p.getId(), p.getDest(), p.getArticle(),
+                p.getFromHour(), p.getFromMinute(), p.getToHour(), p.getToMinute(), p.getImgUrl(), p.getOuterUrl(),
+                null, null, null, null, null, null, false));
 
         return result;
     }

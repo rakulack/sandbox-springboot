@@ -3,3 +3,9 @@ INSERT INTO user (email, password, roles, enable_flag) VALUES ('test2@example.co
 INSERT INTO user (email, password, roles, enable_flag) VALUES ('test3@example.com', '{bcrypt}$2a$10$YdUoo9YFRgpvswA2wVslE.yJoWsq0NPKL3cRM0DjPUpkVBaYSkoWa', 'ROLE_ADMIN', 1);
 INSERT INTO user (email, password, roles, enable_flag) VALUES ('test4@example.com', '{bcrypt}$2a$10$z6AnFPpurI6.SthxWBp0t.KhhKO4cGqfSLxSXzXfJfWKSXWa8nbx6', null, 1);
 INSERT INTO user (email, password, roles, enable_flag) VALUES ('test5@example.com', '{bcrypt}$2a$10$FL28wRiBHtE4nD1oVX91UOrQBWCPWor69gmA4sOtwAvOrgvuACQYS', 'ROLE_USER', 0);
+INSERT INTO header (user_id, hash, title, prc_date) VALUES (1, 'hogehogefugafuga', '旅行案1', SYSDATE);
+INSERT INTO place (header_id , dest, article , from_hour, from_minute, to_hour, to_minute, img_url, outer_url, prc_date) VALUES (1,'旅行案1の目的地1', '旅行案1の一番目の記事', 10, 00, 11, 00, 'https://thumb.photo-ac.com/e0/e0a09f3f10388cfd6099863e722dfae3_w.jpeg', 'example.co.jp' ,SYSDATE);
+INSERT INTO place (header_id , dest, article , from_hour, from_minute, to_hour, to_minute, img_url, outer_url, prc_date) VALUES (1,'旅行案1の目的地2', '旅行案1の二番目の記事', 11, 30, 14, 00, 'https://thumb.photo-ac.com/12/12d70f78a3ff946e137b1daafdd7be5e_w.jpeg', 'example.co.jp' ,SYSDATE);
+INSERT INTO place (header_id , dest, article , from_hour, from_minute, to_hour, to_minute, img_url, outer_url, prc_date) VALUES (1,'旅行案1の目的地3', '旅行案1の三番目の記事', 14, 30, 16, 00, 'https://thumb.photo-ac.com/fc/fc506aae77875189e58f2432e57b0fe0_w.jpeg', 'example.co.jp' ,SYSDATE);
+INSERT INTO route (header_id , route , from_hour, from_minute, to_hour, to_minute, prc_date) VALUES (1,'旅行案1の一番目の経路', 11, 00, 11, 30, SYSDATE);
+INSERT INTO route (header_id , route , from_hour, from_minute, to_hour, to_minute, prc_date) VALUES (1,'旅行案1の二番目の経路', 14, 00, 14, 30, SYSDATE);

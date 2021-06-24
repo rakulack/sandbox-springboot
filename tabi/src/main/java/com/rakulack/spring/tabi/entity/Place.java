@@ -12,10 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.Table;
 
-@Table(name = "header")
+@Table(name = "place")
 @Entity
 @Data
 @NoArgsConstructor
@@ -27,6 +26,8 @@ public class Place {
     private Long id;
     @Column(name = "header_id", nullable = false)
     private Long headerId;
+    @Column(name = "dest", length = 2000)
+    private String dest;
     @Column(name = "article", length = 2000)
     private String article;
     @Column(name = "from_hour")
@@ -37,11 +38,10 @@ public class Place {
     private Integer toHour;
     @Column(name = "to_minute")
     private Integer toMinute;
-    @Lob
-    @Column(length = 100000)
-    private byte[] photo;
-    @Column(name = "url", length = 200)
-    private String url;
+    @Column(name = "img_url", length = 200)
+    private String imgUrl;
+    @Column(name = "outer_url", length = 200)
+    private String outerUrl;
     @Column(name = "prc_date")
     private Date prcDate;
 }

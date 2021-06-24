@@ -14,7 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Table(name = "header")
+@Table(name = "route")
 @Entity
 @Data
 @NoArgsConstructor
