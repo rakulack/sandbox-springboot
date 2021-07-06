@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <title th:text="${header.title}">title</title>
+</head>
+
+<body>
+    <div id="app">
+        <v-app id="inspire">
+
+            <v-navigation-drawer v-model="drawer" app>
+                <v-sheet color="grey lighten-4" class="pa-4">
+                    <template sec:authorize="isAuthenticated()">
+                        <v-avatar class="mb-4" color="grey darken-1" size="64"></v-avatar>
+                        <div><span th:text="${#authentication.name}">email</span></div>
+                    </template>
+                    <template sec:authorize="!isAuthenticated()">
+                        <div>ログインしていません</div>
+                    </template>
+                    <v-divider></v-divider>
+                    <v-list>
+                        <template sec:authorize="isAuthenticated()">
+                            <v-list-item v-for="[icon, text, url] in sidebarLinksLogin" :key="icon" :href="url" link>
+                                <v-list-item-icon>
+                                    <v-icon>{{ icon }}</v-icon>
+                                </v-list-item-icon>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>{{ text }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </template>
+                        <template sec:authorize="!isAuthenticated()">
+                            <v-list-item v-for="[icon, text, url] in sidebarLinks" :key="icon" :href="url" link>
+                                <v-list-item-icon>
+                                    <v-icon>{{ icon }}</v-icon>
+                                </v-list-item-icon>
+
+                                <v-list-item-content>
+                                    <v-list-item-title>{{ text }}</v-list-item-title>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </template>
+                    </v-list>
+                </v-sheet>
+            </v-navigation-drawer>
+
+            <v-app-bar app>
+                <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+                <v-toolbar-title>Application</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <template sec:authorize="isAuthenticated()">
+                    <v-btn icon href="/logout">
+                        <v-icon>mdi-logout</v-icon>
+                    </v-btn>
+                </template>
+                <template sec:authorize="!isAuthenticated()">
+                    <v-btn icon href="/login">
+                        <v-icon>mdi-login</v-icon>
+                    </v-btn>
+                </template>
+
+            </v-app-bar>
+
+            <v-main class="grey lighten-2">
+                <v-container>
+                    <v-card elevation="2">
+                        <v-card-title th:text="${header.title}">title</v-card-title>
+                        <v-card-subtitle>URL:<a th:href="'http://localhost:8080/detail/' + ${header.hash}" th:text="'http://localhost:8080/detail/' + ${header.hash}"></a></v-card-subtitle>
+                    <v-card-actions>
+                        <v-btn th:href="'/edit/' + ${header.hash}" color="orange lighten-2" text>
+                        編集
+                        </v-btn>
+                    </v-card-actions>
+                    </v-card>
+                </v-container>
+                <template th:if="${!#lists.isEmpty(blocks)}" th:each="block : ${blocks}">
+                    <v-container>
+                        <v-card elevation="2">
+                            <v-img height="250" th:src="${block.imgUrl}"></v-img>
+                            <v-card-title th:text="${block.dest}">title</v-card-title>
+                            <v-card-text th:text="${block.article}"></v-card-text>
+                            <v-divider class="mx-4"></v-divider>
+                            <v-card-text th:text="'滞在時間 '+${block.CombinePlaceFromTime()}+' ～ '+${block.CombinePlaceToTime()}"></v-card-text>
+                        </v-card>
+                    </v-container>
+                <template th:if="${block.hasRoute}">
+                    <div style="text-align:center;">
+                        <v-icon>mdi-arrow-down-circle-outline</v-icon>
+                    </div>
+                    <v-container>
+                        <v-card elevation="2">
+                            <v-card-text th:text="${block.route}">route</v-card-text>
+                            <v-divider class="mx-4"></v-divider>
+                            <v-card-text th:text="'滞在時間 '+${block.CombineRouteFromTime()}+' ～ '+${block.CombineRouteToTime()}"></v-card-text>                            
+                        </v-card>
+                    </v-container>
+                    <div style="text-align:center;">
+                        <v-icon>mdi-arrow-down-circle-outline</v-icon>
+                    </div>
+                </template>
+                </template>
+            </v-main>
+        </v-app>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: {
+                drawer: null,
+                sidebarLinks: [
+                    ['mdi-login', 'ログイン', '/login'],
+                    ['mdi-account', 'サインアップ', '/signup']
+                ],
+                sidebarLinksLogin: [
+                    ['mdi-logout', 'ログアウト', '/logout'],
+                ],
+            },
+            methods: {
+            }
+        });
+    </script>
+
+</body>
+
+</html>
